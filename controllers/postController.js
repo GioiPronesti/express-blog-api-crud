@@ -19,7 +19,26 @@ function index(req, res) {
 }
 
 function show(req, res) {
-  res.send("mostro il post specifico");
+  const id = parseInt(req.params.id);
+  console.log(`Ecco il post con id: ${id}`);
+
+  const post = posts.find((post) => post.id === id);
+
+  let result = post;
+
+  if (post) {
+    console.log("post not found on list");
+
+    res.status(404);
+    result = {
+      error: " post not found",
+      message: "il post non è stato trovato",
+    };
+  }
+
+  res.json(result);
+
+  //res.send("mostro il post specifico");
 }
 
 function store(req, res) {
@@ -35,6 +54,22 @@ function modify(req, res) {
 }
 
 function destroy(req, res) {
+  const id = parseInt(req.params.id);
+  console.log(`Elimino la pizza con id: ${id}`);
+  const postIndex = posts.findIndex((post) => post.id === id);
+
+  if (postIndex === -1) {
+    res.status(404);
+
+    return res.json({
+      error: "Post not found",
+      message: "il post non è stato trovato.",
+    });
+  }
+  // console.log(postIndex)
+  posts.splice(postIndex, 1);
+  res.sendStatus(204);
+
   res.send("elimino un post preciso");
 }
 
