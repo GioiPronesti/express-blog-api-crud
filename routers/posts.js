@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const postController = require("./controllers/postController.js");
 const posts = require("../data/posts.js");
 
 //prefix /posts
@@ -7,9 +8,7 @@ const posts = require("../data/posts.js");
 // crud routs
 
 // index
-router.get("/", (req, res) => {
-  res.send("indico tutta la lista dei posts");
-});
+router.get("/", postController.index);
 
 // show
 router.get("/:id", (req, res) => {
