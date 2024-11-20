@@ -3,28 +3,28 @@ const posts = require("../data/posts.js");
 // the logic of crud routs
 
 function index(req, res) {
-  router.get("/", (req, res) => {
-    res.send("indico tutta la lista dei posts");
-  });
+  res.send("indico tutta la lista dei posts");
 }
 
 function show(req, res) {
-  router.get("/:id", (req, res) => {
-    res.send("mostro il post specifico");
-  });
+  res.send("mostro il post specifico");
 }
 
 function store(req, res) {
-  router.post("/", (req, res) => {
-    res.send("creo un nuovo post");
-  });
+  res.send("creo un nuovo post");
 }
 
-function update(req, res) {}
+function update(req, res) {
+  res.send("aggiorno un post preciso");
+}
 
-function modify(req, res) {}
+function modify(req, res) {
+  res.send("modifico un post preciso");
+}
 
-function destroy(req, res) {}
+function destroy(req, res) {
+  res.send("elimino un post preciso");
+}
 
 // export of controller function property
 

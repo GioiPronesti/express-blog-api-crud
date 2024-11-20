@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const postController = require("./controllers/postController.js");
-const posts = require("../data/posts.js");
+const postController = require("../controllers/postController.js");
 
 //prefix /posts
 
@@ -11,28 +10,18 @@ const posts = require("../data/posts.js");
 router.get("/", postController.index);
 
 // show
-router.get("/:id", (req, res) => {
-  res.send("mostro il post specifico");
-});
+router.get("/:id", postController.store);
 
 // store
-router.post("/", (req, res) => {
-  res.send("creo un nuovo post");
-});
+router.post("/", postController.store);
 
 // update
-router.put("/:id", (req, res) => {
-  res.send("aggiorno il post specifico");
-});
+router.put("/:id", postController.update);
 
 // modify
-router.patch("/:id", (req, res) => {
-  res.send("modifico il post specifico");
-});
+router.patch("/:id", postController.modify);
 
 // destroy
-router.delete("/:id", (req, res) => {
-  res.send("cancello il post specifico");
-});
+router.delete("/:id", postController.destroy);
 
 module.exports = router;
