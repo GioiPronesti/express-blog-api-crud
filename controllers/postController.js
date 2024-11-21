@@ -12,8 +12,7 @@ In Index e Destroy, controllare se il parametro si riferisce ad un post esistent
 Sia per la show che per la destroy fate funzionare le due API anche quando viene inviato come parametro :id lo slug del post (senza registrare nuove rotte)*/
 
 // Recuperiamo l'id per generare il nuovo elemento
-
-const lastIndex = posts.at(-1);
+let lastIndex = posts.at(-1).id;
 
 // index /posts/
 
@@ -53,11 +52,24 @@ function show(req, res) {
 // in quanto non ho parametro dinamico finchè l'elemento non esiste, perciò è una info che riguarda il server)
 // store /posts/
 
-function store(req, res) {}
+function store(req, res) {
+  const { title, slug, tags } = req.body;
+
+  lastIndex++;
+
+  const post = {
+    id: lastIndex,
+    title,
+    slug,
+    tags,
+  };
+
+  res.json(post);
+}
 
 // la rotta update si occupa di una modifica di un elemento esistente nelle risorse presenti
 // si recupera il parametro dinamico, e modifica le informazioni presenti nel body della request, aggiornamento completo della risorsa
-// update /posts/:id
+// update /posts/
 
 function update(req, res) {
   res.send("aggiorno un post preciso");
