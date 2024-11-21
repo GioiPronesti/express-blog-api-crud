@@ -64,6 +64,10 @@ function store(req, res) {
     tags,
   };
 
+  posts.push(post);
+
+  res.status(201).send(post);
+
   res.json(post);
 }
 
