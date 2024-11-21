@@ -25,6 +25,9 @@ const port = 3000;
 // to show static asset
 app.use(express.static("public")); // http://localhost:3000/imgs/posts/...
 
+// body parsing to convert request.body content-type otherwise console.log request.body is undefined
+app.use(express.json());
+
 // main root
 app.get("/", (req, res) => {
   console.log("main root");
