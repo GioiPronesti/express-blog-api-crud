@@ -76,7 +76,31 @@ function store(req, res) {
 // update /posts/
 
 function update(req, res) {
-  res.send("aggiorno un post preciso");
+  // prendo id con parametro dinamico del path e lo converto in numero intero
+  const id = parseInt(req.params.id);
+
+  // recupero il primo elemento che ha l'id corrispondente al post id
+  const post = posts.find((post) => post.id === id);
+
+  // controllo se post è presente nelle mie risorse
+  if (!post) {
+    res.status(404);
+
+    return res.json({
+      error: "post not found",
+      message: "the post not exist.",
+    });
+  }
+
+  // mi recupero le propietà dell'oggetto dentro req.body
+  const { title, slug, tags } = req.body;
+
+  // aggiorno il valore di TUTTE le proprietà
+  post.title = title;
+  post.slug = slug;
+  post.tags = tags;
+
+  res.json(post);
 }
 
 // la rotta update si occupa di una modifica di un elemento esistente nelle risorse presenti
