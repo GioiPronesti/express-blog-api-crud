@@ -109,7 +109,33 @@ function update(req, res) {
 // modify /posts/:id
 
 function modify(req, res) {
-  res.send("modifico un post preciso");
+  const id = parseInt(req.params.id);
+
+  // recupero il primo elemento che ha l'id corrispondente al post id
+  const post = posts.find((post) => post.id === id);
+
+  // controllo se post è presente nelle mie risorse
+  if (!post) {
+    res.status(404);
+
+    return res.json({
+      error: "post not found",
+      message: "the post not exist.",
+    });
+  }
+
+  // mi recupero le propietà dell'oggetto dentro req.body
+  const { title, slug, tags } = req.body;
+
+  // aggiorno il valore delle PROPRIETA' MODIFICATE
+  // facendo un controllo su ogni proprietà
+  if (title) post.title = title;
+
+  if (slug) post.slug = slug;
+
+  if (tags) post.tags = tags;
+
+  res.json(post);
 }
 
 function destroy(req, res) {
