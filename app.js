@@ -21,6 +21,7 @@ const express = require("express");
 const postRouter = require("./routers/posts.js");
 const app = express();
 const errorsHandler = require("./middlewares/errorsHandler.js");
+const notFound = require("./middlewares/notfound.js");
 const port = 3000;
 
 // to show static asset
@@ -39,6 +40,7 @@ app.get("/", (req, res) => {
 app.use("/posts", postRouter);
 
 app.use(errorsHandler);
+app.use(notFound);
 
 // start server function
 app.listen(port, () => {
