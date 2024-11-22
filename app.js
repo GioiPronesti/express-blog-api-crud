@@ -20,6 +20,7 @@ Sia per la show che per la destroy fate funzionare le due API anche quando viene
 const express = require("express");
 const postRouter = require("./routers/posts.js");
 const app = express();
+const errorsHandler = require("./middlewares/errorsHandler.js");
 const port = 3000;
 
 // to show static asset
@@ -36,6 +37,8 @@ app.get("/", (req, res) => {
 
 // middleware for router
 app.use("/posts", postRouter);
+
+app.use(errorsHandler);
 
 // start server function
 app.listen(port, () => {
