@@ -12,7 +12,7 @@ In Index e Destroy, controllare se il parametro si riferisce ad un post esistent
 Sia per la show che per la destroy fate funzionare le due API anche quando viene inviato come parametro :id lo slug del post (senza registrare nuove rotte)*/
 
 // Recuperiamo l'id per generare il nuovo elemento
-let lastIndex = posts.at(-1).id;
+let lastId = posts.at(-1).id;
 
 // index /posts/
 
@@ -29,11 +29,13 @@ function show(req, res) {
   const id = parseInt(req.params.id);
   console.log(`Ecco il post con id: ${id}`);
 
+  console.log(id);
+
   const post = posts.find((post) => post.id === id);
 
   let result = post;
 
-  if (post) {
+  if (!post) {
     console.log("post not found on list");
 
     res.status(404);
@@ -55,10 +57,10 @@ function show(req, res) {
 function store(req, res) {
   const { title, slug, tags } = req.body;
 
-  lastIndex++;
+  lastId++;
 
   const post = {
-    id: lastIndex,
+    id: lastId,
     title,
     slug,
     tags,
