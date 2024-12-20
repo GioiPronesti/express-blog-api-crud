@@ -1,5 +1,7 @@
 const posts = require("../data/posts.js");
 
+const connection = require("../data/db.js");
+
 // the logic of crud routs
 
 /*Ora passiamo ad implementare le logiche delle nostre CRUD:
@@ -25,7 +27,7 @@ function index(req, res) {
 
 // show /posts/:id
 
-function show(req, res) {
+function show(req, res, next) {
   const id = parseInt(req.params.id);
   console.log(`Ecco il post con id: ${id}`);
 
@@ -36,13 +38,14 @@ function show(req, res) {
   let result = post;
 
   if (!post) {
-    console.log("post not found on list");
+    return next({ message: "not found", status: 404 });
+    // console.log("post not found on list");
 
-    res.status(404);
-    result = {
-      error: " post not found",
-      message: "il post non è stato trovato",
-    };
+    // res.status(404);
+    // result = {
+    //   error: " post not found",
+    //   message: "il post non è stato trovato",
+    // };
   }
 
   res.json(result);
@@ -55,15 +58,25 @@ function show(req, res) {
 // store /posts/
 
 function store(req, res) {
-  const { title, slug, tags } = req.body;
+  const {
+    title,
+    content,
+    image = "",
+    category,
+    tags,
+    published = true,
+  } = req.body;
 
   lastId++;
 
   const post = {
     id: lastId,
     title,
-    slug,
+    content,
+    image,
+    category,
     tags,
+    published,
   };
 
   posts.push(post);

@@ -18,11 +18,14 @@ In Index e Destroy, controllare se il parametro si riferisce ad un post esistent
 Sia per la show che per la destroy fate funzionare le due API anche quando viene inviato come parametro :id lo slug del post (senza registrare nuove rotte)*/
 
 const express = require("express");
+const cors = require("cors");
 const postRouter = require("./routers/posts.js");
 const app = express();
 const errorsHandler = require("./middlewares/errorsHandler.js");
 const notFound = require("./middlewares/notfound.js");
 const port = 3000;
+
+app.use(cors());
 
 // to show static asset
 app.use(express.static("public")); // http://localhost:3000/imgs/posts/...
